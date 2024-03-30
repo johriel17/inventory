@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,20 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Route::get('login', function(){
+//     return view('login');
+// })->name('login');
 
-Route::get('/{any?}/{slug?}', function () {
-    return view('welcome');
-});
+// Route::get('/login', function(){
+//     return view('index');
+// })->name('login');
+
+// Route::get('/{any?}/{slug?}', function () {
+//     return view('index');
+// })->name('index');
+
+Route::get('/{all}', function () {
+    return view('index');
+})->where('all', '^(?!api).*$');
+
+

@@ -54,6 +54,14 @@ const Sidebar = () => {
                                 </p>
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/categories" className="nav-link">
+                                <i className="nav-icon fas fa-folder" />
+                                <p>
+                                    Categories
+                                </p>
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
                 {/* /.sidebar-menu */}

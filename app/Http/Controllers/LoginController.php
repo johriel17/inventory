@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Validation\ValidationException;
 
@@ -25,10 +26,12 @@ class LoginController extends Controller
  
             return response()->json(['error' => 'wrong credentials'], Response::HTTP_UNAUTHORIZED);
         }
- 
-        // return response()->json(['message' => 'Login successful']);
+        
+        $user = $request->user();
+        $expiration = Carbon::now()->addHours(12);
 
-        return redirect()->route('index');
+        $user->expiration = $expiration;
+        return $user;
         
     }
 

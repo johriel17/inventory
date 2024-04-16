@@ -6,16 +6,44 @@ import Dashboard from "../pages/Dashboard";
 
 //Frozens
 import FrozenIndex from '../pages/frozens/index'
+import FrozenAdd from '../pages/frozens/add'
+import FrozenView from '../pages/frozens/view'
+import FrozenEdit from '../pages/frozens/edit'
 
 //categories
 import CategoryIndex from '../pages/categories/index'
+import CategoryAdd from '../pages/categories/add'
+import CategoryView from '../pages/categories/view'
+import CategoryEdit from '../pages/categories/edit'
+//brands
+import BrandsIndex from '../pages/brands/index'
+import BrandsAdd from '../pages/brands/add'
+import BrandsView from '../pages/brands/view'
+import BrandsEdit from '../pages/brands/edit'
+
 const Content = () => {
     return (
         <Routes>
 
             <Route path="/" element={<Dashboard/>} />
-            <Route path="frozens" element={<FrozenIndex/>} />
-            <Route path="categories" element={<CategoryIndex/>} />
+            <Route path="frozens">
+                <Route path="" element={<FrozenIndex />} />
+                <Route path="add" element={<FrozenAdd />} />
+                <Route path="view/:id" element={<FrozenView />} />
+                <Route path="edit/:id" element={<FrozenEdit />} />
+            </Route>
+            <Route path="categories">
+                <Route path="" element={<CategoryIndex />} />
+                <Route path="add" element={<CategoryAdd />} />
+                <Route path="view/:id" element={<CategoryView />} />
+                <Route path="edit/:id" element={<CategoryEdit />} />
+            </Route>
+            <Route path="brands">
+                <Route path="" element={<BrandsIndex />} />
+                <Route path="add" element={<BrandsAdd />} />
+                <Route path="view/:id" element={<BrandsView />} />
+                <Route path="edit/:id" element={<BrandsEdit />} />
+            </Route>
 
         </Routes>
     );

@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('amount');
-            $table->foreignId('category_id')->nullable()->constrained('categories');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('brand_id')->nullable()->constrained('brands')->cascadeOnUpdate()->nullOnDelete();
+            // $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
-            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            // $table->foreign('category_id')->references('id')->on('categories')->nullOnDelete();
         });
     }
 

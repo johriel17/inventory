@@ -6,7 +6,7 @@ import DeleteConfirmation from '../../components/modals/DeleteConfirmation'
 
 const index = () => {
 
-    const [categories, setCategories] = useState([])
+    const [brands, setBrands] = useState([])
     const [loading, setLoading] = useState(false)
     const [noData, setNoData] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
@@ -16,15 +16,15 @@ const index = () => {
     const errorNotify = (msg) => toast.warning(msg);
 
     const [showModal, setShowModal] = useState(false);
-    const [deleteCategory, setDeleteCategory] = useState({});
+    const [deleteBrand, setDeleteBrand] = useState({});
 
 
-    const fetchCategories = async () => {
+    const fetchBrands = async () => {
         setLoading(true)
         try{
-            const response = await axios.get(`/api/categories?page=${currentPage}&search=${searchQuery}`);
+            const response = await axios.get(`/api/brands?page=${currentPage}&search=${searchQuery}`);
 
-            setCategories(response.data.data.data)
+            setBrands(response.data.data.data)
             setNoData(response.data.data.data.length === 0)
             setCurrentPage(response.data.data.current_page)
             setTotalPages(response.data.data.last_page)
@@ -37,7 +37,7 @@ const index = () => {
 
     useEffect(() => {
 
-        fetchCategories();
+        fetchBrands();
 
     }, [currentPage])
 
@@ -50,8 +50,8 @@ const index = () => {
         e.preventDefault()
         try{
             setLoading(true)
-            const response = await axios.get(`/api/categories?page=${currentPage}&search=${searchQuery}`)
-            setCategories(response.data.data.data)
+            const response = await axios.get(`/api/brands?page=${currentPage}&search=${searchQuery}`)
+            setBrands(response.data.data.data)
             setNoData(response.data.data.data.length === 0)
             setCurrentPage(response.data.data.current_page)
             setTotalPages(response.data.data.last_page)
@@ -64,24 +64,24 @@ const index = () => {
 
     }
 
-    const openDeleteModal = (category) => {
-        setDeleteCategory(category);
+    const openDeleteModal = (brand) => {
+        setDeleteBrand(brand);
         setShowModal(true);
     };
 
     const closeDeleteModal = () => {
         setShowModal(false);
-        setDeleteCategory({});
+        setDeleteBrand({});
     };
 
     const handleDelete = async () => {
 
         try{
-            const response = await axios.delete(`/api/categories/${deleteCategory.id}`);
+            const response = await axios.delete(`/api/brands/${deleteBrand.id}`);
             successNotify(`${response.data.name} has been deleted`)
             console.log(response.data)
             closeDeleteModal()
-            fetchCategories()
+            fetchBrands()
         }catch(error){
             console.log(error)
             errorNotify('Somthing went wrong!')
@@ -96,7 +96,7 @@ const index = () => {
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Categories</h1>
+                            <h1>Brands</h1>
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@ const index = () => {
                                     <div className="card-header">
                                         <div className="row">
                                             <div className="col-3">
-                                                <Link to='/categories/add' className='btn btn-primary btn-md'><i className="fas fa-plus"></i> Add Category</Link>
+                                                <Link to='/brands/add' className='btn btn-primary btn-md'><i className="fas fa-plus"></i> Add Brand</Link>
                                             </div>
                                             <div className="col-9">
                                                 <div className="row justify-content-end">
@@ -148,16 +148,16 @@ const index = () => {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {categories.length > 0 && (categories.map((category, index) => (
-                                            <tr key={category.id}>
+                                        {brands.length > 0 && (brands.map((brand, index) => (
+                                            <tr key={brand.id}>
                                                 <td>{(currentPage - 1) * 10 + index + 1}</td>
-                                                <td>{category.name}</td>
+                                                <td>{brand.name}</td>
                                                 <td className='text-center'>
                                                     <div className="row justify-content-around">
 
-                                                        <Link to={`/categories/view/${category.id}`} className='btn btn-sm btn-info'><i className="fas fa-eye"></i></Link>
-                                                        <Link to={`/categories/edit/${category.id}`} className='btn btn-sm btn-warning'><i className="fas fa-edit"></i></Link>
-                                                        <button onClick={() => openDeleteModal(category)} className='btn btn-sm btn-danger'><i className="fas fa-trash-alt"></i></button>
+                                                        <Link to={`/brands/view/${brand.id}`} className='btn btn-sm btn-info'><i className="fas fa-eye"></i></Link>
+                                                        <Link to={`/brands/edit/${brand.id}`} className='btn btn-sm btn-warning'><i className="fas fa-edit"></i></Link>
+                                                        <button onClick={() => openDeleteModal(brand)} className='btn btn-sm btn-danger'><i className="fas fa-trash-alt"></i></button>
 
                                                     </div>
                                                 </td>
@@ -179,7 +179,7 @@ const index = () => {
                 </div>
             </section>
             }
-            <DeleteConfirmation title="Delete Category" name={deleteCategory.name} isOpen={showModal} handleClose={closeDeleteModal} handleConfirm={handleDelete} modalId='delete-category'/>
+            <DeleteConfirmation title="Delete Brand" name={deleteBrand.name} isOpen={showModal} handleClose={closeDeleteModal} handleConfirm={handleDelete} modalId='delete-brand'/>
             {showModal && (
                 <div className='modal-backdrop fade show' onClick={closeDeleteModal}></div>
             )}

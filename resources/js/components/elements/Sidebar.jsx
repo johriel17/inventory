@@ -62,6 +62,14 @@ const Sidebar = () => {
                                 </p>
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/brands" className="nav-link">
+                                <i className="nav-icon fas fa-star" />
+                                <p>
+                                    Brands
+                                </p>
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
                 {/* /.sidebar-menu */}

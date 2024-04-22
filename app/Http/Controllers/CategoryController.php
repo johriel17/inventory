@@ -37,6 +37,7 @@ class CategoryController extends Controller
 
     
         $category = Category::create($validated);
+        
         $data = [
             'success' => 'Successfully added',
             'category' => $category,

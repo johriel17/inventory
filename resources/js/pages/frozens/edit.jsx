@@ -20,6 +20,7 @@ const edit = () => {
         });
     };
 
+    const [errors, setErrors] = useState({})
     const [categories, setCategories] = useState([])
     const [brands, setBrands] = useState([])
     const navigate = useNavigate()
@@ -90,12 +91,14 @@ const edit = () => {
         e.preventDefault()
 
         try{
+            setErrors({})
             const response = await axios.put(`/api/frozens/${id}`, {...formData, category_id : selectedCategory, brand_id : selectedBrand});
             successNotify(response.data.success)
             navigate('/frozens')
         }catch(error){
-            console.log(error)
-            errorNotify('warning! there is an error')
+            const errorMsg = error.response.data
+            setErrors(errorMsg.errors)
+            errorNotify(`warning! ${errorMsg.message}`)
         }
 
     }
@@ -120,37 +123,52 @@ const edit = () => {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col-6 form-group">
-                                    <label htmlFor="name">Name</label>
-                                    <input id='name' name='name' value={formData.name} onChange={handleChange} type="text" className="form-control" autoComplete='off' />
+                                        <label htmlFor="name">Name</label>
+                                        <input id='name' name='name' value={formData.name} onChange={handleChange} type="text" className={`form-control ${errors.name && 'error-input'}`} autoComplete='off' />
+                                        {errors.name && errors.name.map((msg, index) => (
+                                            <span key={index} className='error-msg'>{msg}</span>
+                                        ))}
                                     </div>
                                     <div className="col-6 form-group">
-                                    <label htmlFor="description">Description</label>
-                                    <input id='description' name='description' value={formData.description} onChange={handleChange} type="text" className="form-control" autoComplete='off' />
+                                        <label htmlFor="description">Description</label>
+                                        <input id='description' name='description' value={formData.description} onChange={handleChange} type="text" className={`form-control ${errors.description && 'error-input'}`} autoComplete='off' />
+                                        {errors.description && errors.description.map((msg, index) => (
+                                            <span key={index} className='error-msg'>{msg}</span>
+                                        ))}
                                     </div>
                                     <div className="col-6 form-group">
-                                    <label htmlFor="amount">Amount</label>
-                                    <input id='amount' name='amount' value={formData.amount} onChange={handleChange} type="text" className="form-control" autoComplete='off' />
+                                        <label htmlFor="amount">Amount</label>
+                                        <input id='amount' name='amount' value={formData.amount} onChange={handleChange} type="text" className={`form-control ${errors.amount && 'error-input'}`} autoComplete='off' />
+                                        {errors.amount && errors.amount.map((msg, index) => (
+                                            <span key={index} className='error-msg'>{msg}</span>
+                                        ))}
                                     </div>
                                     <div className="col-sm-6">
                                         <div className="form-group">
                                             <label>Category</label>
-                                            <select name='category' value={selectedCategory} onChange={handleSelectChange} className="form-control">
+                                            <select name='category' value={selectedCategory} onChange={handleSelectChange} className={`form-control ${errors.category_id && 'error-input'}`}>
                                             <option value="">Select Category</option>
                                             {categories && categories.map((category) => (
                                                 <option key={category.id} value={category.id}>{category.name}</option>
                                             ))}
                                             </select>
+                                            {errors.category_id && errors.category_id.map((msg, index) => (
+                                                <span key={index} className='error-msg'>{msg}</span>
+                                            ))}
                                         </div>
                                     </div>
                                     <div className="col-sm-6">
                                         <div className="form-group">
                                             <label>Brand</label>
-                                            <select name='brand' value={selectedBrand} onChange={handleSelectChange} className="form-control">
+                                            <select name='brand' value={selectedBrand} onChange={handleSelectChange} className={`form-control ${errors.brand_id && 'error-input'}`}>
                                             <option value="">Select Brand</option>
                                             {brands && brands.map((brand) => (
                                                 <option key={brand.id} value={brand.id}>{brand.name}</option>
                                             ))}
                                             </select>
+                                            {errors.brand_id && errors.brand_id.map((msg, index) => (
+                                                <span key={index} className='error-msg'>{msg}</span>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>

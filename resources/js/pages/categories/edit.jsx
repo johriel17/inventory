@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const edit = () => {
 
     const [name, setName] = useState('')
-    const [error, setError] = useState({})
+    const [errors, setErrors] = useState({})
     const navigate = useNavigate()
     const successNotify = (msg) => toast.success(msg);
     const errorNotify = (msg) => toast.error(msg);
@@ -32,13 +32,14 @@ const edit = () => {
         e.preventDefault()
 
         try{
+            setErrors({})
             const response = await axios.put(`/api/categories/${id}`, {name});
             successNotify(response.data.success)
-            console.log(response)
             navigate('/categories')
         }catch(error){
-            console.log(error)
-            errorNotify('warning! there is an error')
+            const errorMsg = error.response.data
+            setErrors(errorMsg.errors)
+            errorNotify(`warning! ${errorMsg.message}`)
         }
 
     }
@@ -63,7 +64,10 @@ const edit = () => {
                             <div className="card-body">
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
-                                <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} id="name" autoComplete='off' />
+                                <input type="text" className={`form-control ${errors.name && 'error-input'}`} value={name} onChange={(e) => setName(e.target.value)} id="name" autoComplete='off' />
+                                {errors.name && errors.name.map((msg, index) => (
+                                    <span key={index} className='error-msg'>{msg}</span>
+                                ))}
                             </div>
                             </div>
                             <div className="card-footer text-right">

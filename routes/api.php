@@ -6,6 +6,7 @@ use App\Http\Controllers\FrozenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SaleLogController;
 use App\Http\Controllers\SelectController;
 
 /*
@@ -53,5 +54,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/frozens/{id}', [FrozenController::class, 'show']);
     Route::put('/frozens/{frozen}', [FrozenController::class, 'update']);
     Route::delete('/frozens/{frozen}', [FrozenController::class, 'destroy']);
+
+    //sale_logs
+    Route::get('/sale_logs', [SaleLogController::class, 'index']);
+    Route::post('/sale_logs', [SaleLogController::class, 'store']);
+    Route::get('/sale_logs/{id}', [SaleLogController::class, 'show']);
+    Route::put('/sale_logs/{saleLog}', [SaleLogController::class, 'update']);
+    // Route::delete('/frozens/{frozen}', [FrozenController::class, 'destroy']);
 });
 

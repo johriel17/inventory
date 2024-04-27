@@ -20,6 +20,11 @@ import BrandsIndex from '../pages/brands/index'
 import BrandsAdd from '../pages/brands/add'
 import BrandsView from '../pages/brands/view'
 import BrandsEdit from '../pages/brands/edit'
+//saleLogs
+import SaleLogIndex from '../pages/sale_logs/index'
+import SaleLogAdd from '../pages/sale_logs/add'
+import SaleLogView from '../pages/sale_logs/view'
+import SaleLogEdit from '../pages/sale_logs/edit'
 
 const Content = () => {
     return (
@@ -43,6 +48,12 @@ const Content = () => {
                 <Route path="add" element={<BrandsAdd />} />
                 <Route path="view/:id" element={<BrandsView />} />
                 <Route path="edit/:id" element={<BrandsEdit />} />
+            </Route>
+            <Route path="sale_logs">
+                <Route path="" element={<SaleLogIndex />} />
+                <Route path="add" element={<SaleLogAdd />} />
+                <Route path="view/:id" element={<SaleLogView />} />
+                <Route path="edit/:id" element={<SaleLogEdit />} />
             </Route>
 
         </Routes>

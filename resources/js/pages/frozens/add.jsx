@@ -8,7 +8,6 @@ const add = () => {
         name: "",
         description: "",
         amount: "",
-        error: {}
       });
     
     // const { name, description, amount, error } = formData;

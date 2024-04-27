@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Frozen extends Model
 {
@@ -24,5 +25,9 @@ class Frozen extends Model
 
     public function brand(){
         return $this->belongsTo(Brand::class);
+    }
+
+    public function SaleLogProducts(): BelongsToMany{
+        return $this->belongsToMany(SaleLogProduct::class);
     }
 }

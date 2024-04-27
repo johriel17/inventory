@@ -47,6 +47,14 @@ const Sidebar = () => {
             </ul> */}
                         </li>
                         <li className="nav-item">
+                            <Link to="/sale_logs" className="nav-link">
+                                <i className="nav-icon fas fa-clipboard" />
+                                <p>
+                                    Sale Logs
+                                </p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/frozens" className="nav-link">
                                 <i className="nav-icon fas fa-icicles" />
                                 <p>
